@@ -1,14 +1,21 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Mural</title>
+    <title th:text="#{app.title}">Mural</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1>Mural</h1>
+
+<div th:insert="~{cabecalho :: siteHeader}"></div>
+
+<h1 th:text="#{app.title}"></h1>
+
 <ul>
-    <li><a th:href="@{/mensagens}">Ver Mensagens</a></li>
-    <li><a th:href="@{/postar}">Postar uma nova mensagem</a></li>
+    <li><a th:href="@{/mensagens}" th:text="#{menu.messages}"></a></li>
+    <li><a th:href="@{/postar}" th:text="#{menu.post}"></a></li>
+    <li><a th:href="@{/logout}" th:text="#{menu.logout}"></a></li>
 </ul>
+
 </body>
 </html>

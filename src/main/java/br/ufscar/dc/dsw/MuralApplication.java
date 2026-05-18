@@ -1,13 +1,19 @@
 package br.ufscar.dc.dsw;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.SpringApplication;
+import br.ufscar.dc.dsw.repositories.UserRepository;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootTest
-class MuralApplicationTests {
+@SpringBootApplication
+public class MuralApplication {
 
-	@Test
-	void contextLoads() {
+	public static void main(String[] args) {
+		var context = SpringApplication.run(MuralApplication.class, args);
+
+		var userRepository = context.getBean(UserRepository.class);
+		if (userRepository.count() == 0) {
+			userRepository.save("admin", "admin", "ADMIN");
+			userRepository.save("user", "user", "USER");
+		}
 	}
-
 }

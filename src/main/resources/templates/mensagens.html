@@ -1,32 +1,52 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Mural</title>
+    <title th:text="#{messages.title}">Mensagens</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1>Mensagens</h1>
+
+<div th:insert="~{cabecalho :: siteHeader}"></div>
+
+<h1 th:text="#{messages.title}"></h1>
+
 <ul>
-    <li><a th:href="@{/}">Home</a></li>
-    <li><a th:href="@{/postar}">Postar uma nova mensagem</a></li>
-    <li><a th:href="@{/mensagens}">Atualizar página</a></li>
+    <li><a th:href="@{/}" th:text="#{menu.home}"></a></li>
+    <li><a th:href="@{/postar}" th:text="#{menu.post}"></a></li>
+    <li><a th:href="@{/mensagens}" th:text="#{menu.refresh}"></a></li>
 </ul>
 
 <br>
+
 <div th:if="${success}" th:text="${success}" class="success-message"></div>
+
 <div th:if="${#lists.isEmpty(messages)}">
-    <p>Sem mensagens.</p>
+    <p th:text="#{messages.empty}"></p>
 </div>
+
 <div th:unless="${#lists.isEmpty(messages)}">
-    <h4 th:text="${'Número de mensagens: ' + messages.size()}"></h4>
+
+    <h4 th:text="${messages.size()}"></h4>
+
     <div th:each="msg : ${messages}">
         <div>
-            <strong>De:</strong> <span th:text="${msg.from()}"></span>
-                    &nbsp;
-            <strong>Para:</strong> <span th:text="${msg.to()}"></span>
-            (em <span th:text="${msg.timestamp()}"></span>)
-          </div>
+            <strong th:text="#{post.from}"></strong>:
+            <span th:text="${msg.from()}"></span>
+
+            &nbsp;
+
+            <strong th:text="#{post.to}"></strong>:
+            <span th:text="${msg.to()}"></span>
+
+            (<span th:text="${msg.timestamp()}"></span>)
+        </div>
+
         <div th:text="${msg.message()}"></div>
+        <hr>
     </div>
+
 </div>
+
 </body>
+</html>
